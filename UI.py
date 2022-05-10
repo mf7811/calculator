@@ -29,7 +29,7 @@ def button_equal_event():
 		funcStr = ""
 	else:
 		if "(" in inputStr:
-			strAfterHandle = calculator.handlePerentheses(inputStr)
+			strAfterHandle = calculator.handleParentheses(inputStr)
 			outStr = calculator.calculate(strAfterHandle)
 		else:
 			outStr = calculator.calculate(inputStr)

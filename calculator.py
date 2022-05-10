@@ -67,7 +67,7 @@ def calculate(inputStr):
 			outStr = outStr[:-2]
 		return outStr
 
-def handlePerentheses(inputStr):
+def handleParentheses(inputStr):
 	print("inputStr",inputStr)
 	subStrPattern = re.compile(r'\([\d\+\-\*\/.]*\)')
 	subStrMatch = subStrPattern.search(inputStr)
@@ -78,7 +78,7 @@ def handlePerentheses(inputStr):
 	if "(" not in afterHandle:
 		return afterHandle
 	else:
-		return handlePerentheses(afterHandle)
+		return handleParentheses(afterHandle)
 
 
 if __name__ == "__main__":
@@ -91,7 +91,7 @@ if __name__ == "__main__":
 			print("Input string is abnormal, please check.")
 		else:
 			if "(" in inputStr:
-				strAfterHandle = handlePerentheses(inputStr)
+				strAfterHandle = handleParentheses(inputStr)
 				outStr = calculate(strAfterHandle)
 			else:
 				outStr = calculate(inputStr)
