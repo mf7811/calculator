@@ -1,12 +1,10 @@
-# Lastest modify: 2022/05/07
-# Version: 1.0
+# Lastest modify: 2022/05/10
+# Version: 1.1
 # Created by YiFang
 
 import re
 
 def multiplyDivide(opArr,numArr):
-	# print(opArr)
-	# print(numArr)
 	for i in range(0,len(numArr)):
 		if opArr[i] == "*-":
 			opArr[i] = "*"
@@ -60,7 +58,6 @@ def calculate(inputStr):
 			if outStr[-2:] == ".0":
 				outStr = outStr[:-2]
 			outValue = float(outStr)
-			# print("Output: ", outStr)
 			return outStr
 		except: #not number, need calculate
 			return calculate(outStr)
@@ -68,7 +65,6 @@ def calculate(inputStr):
 		outStr = plusMinus(opArr,numArr)
 		if outStr[-2:] == ".0":
 			outStr = outStr[:-2]
-		# print("Output: ", outStr)
 		return outStr
 
 def handlePerentheses(inputStr):
@@ -76,7 +72,6 @@ def handlePerentheses(inputStr):
 	subStrPattern = re.compile(r'\([\d\+\-\*\/.]*\)')
 	subStrMatch = subStrPattern.search(inputStr)
 	subStr = inputStr[subStrMatch.span()[0]+1:subStrMatch.span()[1]-1]
-	# print(subStr)
 	outStr = calculate(subStr)
 	afterHandle = inputStr.replace("("+subStr+")",outStr)
 
@@ -85,7 +80,6 @@ def handlePerentheses(inputStr):
 	else:
 		return handlePerentheses(afterHandle)
 
-print("__name__: ", __name__)
 
 if __name__ == "__main__":
 	while 1:

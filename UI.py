@@ -1,5 +1,5 @@
 # Lastest modify: 2022/05/10
-# Version: 1.0
+# Version: 1.1
 # Created by YiFang
 
 import calculator
@@ -88,7 +88,6 @@ button_equal.place(x=375,y=480)
 button_leftperen.place(x=125,y=120)
 button_rightperen.place(x=250,y=120)
 button_clean.place(x=0,y=120)
-
 
 
 window.mainloop()
