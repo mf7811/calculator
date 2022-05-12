@@ -1,10 +1,11 @@
-# Lastest modify: 2022/05/10
-# Version: 1.1
+# Lastest modify: 2022/05/12
+# Version: 1.2
 # Created by YiFang
 
 import calculator
 from tkinter import *
 from functools import partial
+import re
 
 funcStr = ""
 buttonWidth = 10
@@ -42,52 +43,32 @@ def clean_event():
 	funcStr = ""
 	label['text'] = ""
 
-
 window = Tk()
 window.title("Calculator")
-window.geometry("502x600+250+200")
+window.geometry("505x600+250+200")
 
-label = Label(window, text = "", width = labelWidth, height= labelHeight, bg='#bdbdbd',font = ('Arial', 18))
-button_1 = Button(window, text = "1", command = partial(add_str,"1"), width = buttonWidth, height= buttonHeight, font = ('Arial', 15))
-button_2 = Button(window, text = "2", command = partial(add_str,"2"), width = buttonWidth, height= buttonHeight, font = ('Arial', 15))
-button_3 = Button(window, text = "3", command = partial(add_str,"3"), width = buttonWidth, height= buttonHeight, font = ('Arial', 15))
-button_4 = Button(window, text = "4", command = partial(add_str,"4"), width = buttonWidth, height= buttonHeight, font = ('Arial', 15))
-button_5 = Button(window, text = "5", command = partial(add_str,"5"), width = buttonWidth, height= buttonHeight, font = ('Arial', 15))
-button_6 = Button(window, text = "6", command = partial(add_str,"6"), width = buttonWidth, height= buttonHeight, font = ('Arial', 15))
-button_7 = Button(window, text = "7", command = partial(add_str,"7"), width = buttonWidth, height= buttonHeight, font = ('Arial', 15))
-button_8 = Button(window, text = "8", command = partial(add_str,"8"), width = buttonWidth, height= buttonHeight, font = ('Arial', 15))
-button_9 = Button(window, text = "9", command = partial(add_str,"9"), width = buttonWidth, height= buttonHeight, font = ('Arial', 15))
-button_0 = Button(window, text = "0", command = partial(add_str,"0"), width = 24, height= buttonHeight, font = ('Arial', 15))
-button_dot = Button(window, text = ".", command = partial(add_str,"."), width = buttonWidth, height= buttonHeight, font = ('Arial', 15))
-button_plus = Button(window, text = "+", command = partial(add_str,"+"), width = buttonWidth, height= buttonHeight, font = ('Arial', 15))
-button_minus = Button(window, text = "-", command = partial(add_str,"-"), width = buttonWidth, height= buttonHeight, font = ('Arial', 15))
-button_multiply = Button(window, text = "x", command = partial(add_str,"*"), width = buttonWidth, height= buttonHeight, font = ('Arial', 15))
-button_divide = Button(window, text = "/", command = partial(add_str,"/"), width = buttonWidth, height= buttonHeight, font = ('Arial', 15))
-button_leftperen = Button(window, text = "(", command = partial(add_str,"("), width = buttonWidth, height= buttonHeight, font = ('Arial', 15))
-button_rightperen = Button(window, text = ")", command = partial(add_str,")"), width = buttonWidth, height= buttonHeight, font = ('Arial', 15))
-button_equal = Button(window, text = "=", command = button_equal_event, width = buttonWidth, height= buttonHeight, font = ('Arial', 15))
-button_clean = Button(window, text = "C", command = clean_event, width = buttonWidth, height= buttonHeight, font = ('Arial', 15))
+currentWidth = window.winfo_width()
+currentHeight = window.winfo_height()
+topFrame = Frame(window,width=currentWidth,height=150,bg='gray')
+topFrame.pack(side=TOP,fill=X)
+numberFrame = Frame(window,width=currentWidth,height=currentHeight-150,bg='gray')
+numberFrame.pack()
 
-label.place(x=0,y=0)
-button_1.place(x=0,y=210)
-button_2.place(x=125,y=210)
-button_3.place(x=250,y=210)
-button_4.place(x=0,y=300)
-button_5.place(x=125,y=300)
-button_6.place(x=250,y=300)
-button_7.place(x=0,y=390)
-button_8.place(x=125,y=390)
-button_9.place(x=250,y=390)
-button_0.place(x=0,y=480)
-button_dot.place(x=250,y=480)
-button_divide.place(x=375,y=120)
-button_multiply.place(x=375,y=210)
-button_minus.place(x=375,y=300)
-button_plus.place(x=375,y=390)
-button_equal.place(x=375,y=480)
-button_leftperen.place(x=125,y=120)
-button_rightperen.place(x=250,y=120)
-button_clean.place(x=0,y=120)
+buttonMap = [["C","7","4","1","00"],["(","8","5","2","0"],[")","9","6","3","."],["/","*","-","+","="]]
+
+pixel = PhotoImage(width=1,height=1)
+label = Label(topFrame, text = "", width = labelWidth, height= labelHeight,font = ('Arial', 18),bg='gray')
+label.pack()
+
+for x in range(0,len(buttonMap)):
+	for y in range(0,len(buttonMap[0])):
+		if buttonMap[x][y]=="C":
+			tmpButton = Button(numberFrame,text = buttonMap[x][y], command = clean_event, width=buttonWidth,height=buttonHeight)
+		elif buttonMap[x][y]=="=":
+			tmpButton = Button(numberFrame,text = buttonMap[x][y], command = button_equal_event,width=buttonWidth,height=buttonHeight)
+		else:
+			tmpButton = Button(numberFrame,text = buttonMap[x][y], command = partial(add_str,buttonMap[x][y]),width=buttonWidth,height=buttonHeight)
+		tmpButton.grid(column=x,row=y)
 
 
 window.mainloop()
